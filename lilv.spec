@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : lilv
 Version  : 0.24.12
-Release  : 339
+Release  : 340
 URL      : file:///aot/build/clearlinux/packages/lilv/lilv-v0.24.12.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/lilv/lilv-v0.24.12.tar.gz
 Summary  : Simple C library for hosting LV2 plugins
@@ -217,7 +217,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1639848475
+export SOURCE_DATE_EPOCH=1639851094
 unset LD_AS_NEEDED
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
