@@ -5,12 +5,19 @@
 %define keepstatic 1
 Name     : lilv
 Version  : 0.24.12
-Release  : 338
+Release  : 339
 URL      : file:///aot/build/clearlinux/packages/lilv/lilv-v0.24.12.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/lilv/lilv-v0.24.12.tar.gz
 Summary  : Simple C library for hosting LV2 plugins
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: lilv-bin = %{version}-%{release}
+Requires: lilv-data = %{version}-%{release}
+Requires: lilv-lib = %{version}-%{release}
+Requires: lilv-man = %{version}-%{release}
+Requires: lilv-python = %{version}-%{release}
+Requires: lilv-python3 = %{version}-%{release}
+Requires: rdflib
 BuildRequires : alsa-lib-dev
 BuildRequires : alsa-lib-dev32
 BuildRequires : autogen
@@ -122,6 +129,80 @@ Lilv is a C library to make the use of LV2 plugins as simple as possible for
 applications.
 For more information, see <http://drobilla.net/software/lilv>.
 
+%package bin
+Summary: bin components for the lilv package.
+Group: Binaries
+Requires: lilv-data = %{version}-%{release}
+
+%description bin
+bin components for the lilv package.
+
+
+%package data
+Summary: data components for the lilv package.
+Group: Data
+
+%description data
+data components for the lilv package.
+
+
+%package dev
+Summary: dev components for the lilv package.
+Group: Development
+Requires: lilv-lib = %{version}-%{release}
+Requires: lilv-bin = %{version}-%{release}
+Requires: lilv-data = %{version}-%{release}
+Provides: lilv-devel = %{version}-%{release}
+Requires: lilv = %{version}-%{release}
+
+%description dev
+dev components for the lilv package.
+
+
+%package lib
+Summary: lib components for the lilv package.
+Group: Libraries
+Requires: lilv-data = %{version}-%{release}
+
+%description lib
+lib components for the lilv package.
+
+
+%package man
+Summary: man components for the lilv package.
+Group: Default
+
+%description man
+man components for the lilv package.
+
+
+%package python
+Summary: python components for the lilv package.
+Group: Default
+Requires: lilv-python3 = %{version}-%{release}
+
+%description python
+python components for the lilv package.
+
+
+%package python3
+Summary: python3 components for the lilv package.
+Group: Default
+Requires: python3-core
+
+%description python3
+python3 components for the lilv package.
+
+
+%package staticdev
+Summary: staticdev components for the lilv package.
+Group: Default
+Requires: lilv-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the lilv package.
+
+
 %prep
 %setup -q -n lilv
 cd %{_builddir}/lilv
@@ -136,7 +217,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1639848194
+export SOURCE_DATE_EPOCH=1639848475
 unset LD_AS_NEEDED
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
@@ -383,3 +464,44 @@ popd
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/lilv-bench
+/usr/bin/lv2apply
+/usr/bin/lv2bench
+/usr/bin/lv2info
+/usr/bin/lv2ls
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/bash_completion.d/lilv
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/lilv-0/lilv/lilv.h
+/usr/include/lilv-0/lilv/lilvmm.hpp
+/usr/lib64/liblilv-0.so
+/usr/lib64/pkgconfig/lilv-0.pc
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/liblilv-0.so.0
+/usr/lib64/liblilv-0.so.0.24.13
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/lv2apply.1
+/usr/share/man/man1/lv2info.1
+/usr/share/man/man1/lv2ls.1
+
+%files python
+%defattr(-,root,root,-)
+
+%files python3
+%defattr(-,root,root,-)
+/usr/lib/python3*/*
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/liblilv-0.a
